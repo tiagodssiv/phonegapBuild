@@ -37,11 +37,19 @@
  document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
+	
+	var doc = new jsPDF();
+ doc.text(9, 13,'Nome : fwfefeafeafqqfqef');
+
+  
+//doc.save("teste.pdf");
+var pdfOutput = doc.output(); 
+
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     }
 
     function gotFS(fileSystem) {
-        fileSystem.root.getFile("info.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+        fileSystem.root.getFile("info.pdf", {create: true, exclusive: false}, gotFileEntry, fail);
     }
 
     function gotFileEntry(fileEntry) {
@@ -53,15 +61,14 @@
            // alert("contents of file now 'some sample text'");
             writer.truncate(11);
             writer.onwriteend = function(evt) {
-                alert("contents of file now 'some sample'");
-                writer.seek(4);
-                writer.write(" different text");
+               writer.seek(4);
+                writer.write(pdfOutput);
                 writer.onwriteend = function(evt){
                   //  alert("contents of file now 'some different text'");
                 }
             };
         };
-        writer.write("someuuuuuuuuuuuuuuuuuuuuuu "); //1
+        writer.write(pdfOutput); //1
     }
 
     function fail(error) {
