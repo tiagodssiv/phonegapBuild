@@ -34,7 +34,41 @@
 
 <script>
 
+ document.addEventListener("deviceready", onDeviceReady, false);
 
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile("info.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.createWriter(gotFileWriter, fail);
+    }
+
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+           // alert("contents of file now 'some sample text'");
+            writer.truncate(11);
+            writer.onwriteend = function(evt) {
+                alert("contents of file now 'some sample'");
+                writer.seek(4);
+                writer.write(" different text");
+                writer.onwriteend = function(evt){
+                  //  alert("contents of file now 'some different text'");
+                }
+            };
+        };
+        writer.write("someuuuuuuuuuuuuuuuuuuuuuu "); //1
+    }
+
+    function fail(error) {
+        alert(error.code);
+    }
+
+/*
 function jssPDF(){
 
 
@@ -79,7 +113,7 @@ console.log (evt.target.error.code);
 
 
 }
-
+*/
 </script>
 </body>
 </html>
