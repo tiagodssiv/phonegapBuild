@@ -1,49 +1,86 @@
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <title>FileWriter Example</title>
+<head>
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
+    <title>Hello World</title>
+</head>
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+<body>
 
-    function onDeviceReady() {
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-    }
+<a href="#" onclick="jssPDF();"id="pdf">BAIXAR PDF</a>
 
-    function gotFS(fileSystem) {
-        fileSystem.root.getFile("info.txt", {create: true, exclusive: false}, gotFileEntry, fail);
-    }
 
-    function gotFileEntry(fileEntry) {
-        fileEntry.createWriter(gotFileWriter, fail);
-    }
 
-    function gotFileWriter(writer) {
-        writer.onwriteend = function(evt) {
-            alert("contents of file now 'some sample text'");
-            writer.truncate(11);
-            writer.onwriteend = function(evt) {
-                alert("contents of file now 'some sample'");
-                writer.seek(4);
-                writer.write(" different text");
-                writer.onwriteend = function(evt){
-                    alert("contents of file now 'some different text'");
-                }
-            };
-        };
-        writer.write("some sample text"); //1
-    }
 
-    function fail(error) {
-        alert(error.code);
-    }
 
-    </script>
-  </head>
-  <body>
-    <h1>Example</h1>
-    <p>Write File</p>
-  </body>
+<script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+ <script type="text/javascript" src="cordova.js"></script>
+ <script type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
+
+<script src="pdf.js"></script>
+<script src="html2canvas.js"></script>
+
+<script>
+
+
+function jssPDF(){
+
+var doc = new jsPDF();
+ doc.text(9, 13,'Nome : fwfefeafeafqqfqef');
+
+  
+//doc.save("teste.pdf");
+var pdfOutput = doc.output(); 
+console.log (pdfOutput);
+
+console.log ("sistema de arquivos ..."); 
+
+
+
+window.requestFileSystem (LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+
+console.log (fileSystem.name); 
+console.log (fileSystem.root.name); 
+console.log (fileSystem.root.fullPath);
+
+fileSystem.root.getFile ("test.pdf", {create: true}, function (entrada) { 
+var fileEntry = entrada; 
+console.log (entrada);
+
+entry.createWriter (function (writer) { 
+writer.onwrite = function (evt) { 
+console.log ("gravação de sucesso"); 
+};
+
+console.log ("escrevendo para o arquivo"); 
+writer.write (pdfOutput); 
+}, function (error) { 
+console.log (erro); 
+});
+
+}, function (error) { 
+console.log (erro); 
+}); 
+} 
+function (event) { 
+console.log (evt.target.error.code); 
+});
+
+
+}
+
+</script>
+</body>
 </html>
