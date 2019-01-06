@@ -1,0 +1,13 @@
+{
+  "name": "com.infologs",
+  "version": "0.0.1",
+  "displayName": "CordovaApp",
+  "cordova": {
+    "platforms": [
+      "browser"
+    ]
+  },
+  "dependencies": {
+    "cordova-browser": "~5.0.4"
+  }
+}
