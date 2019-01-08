@@ -34,8 +34,50 @@
 
 <script>
 
+ document.addEventListener("deviceready", onDeviceReady, false);
 
+    function onDeviceReady() {
+	
+	var doc = new jsPDF();
+ doc.text(9, 13,'Nome : fwfefeafeafqqfqef');
+
+  
+//doc.save("teste.pdf");
+var pdfOutput = doc.output(); 
+
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile("info.pdf", {create: true, exclusive: false}, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.createWriter(gotFileWriter, fail);
+    }
+
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+           // alert("contents of file now 'some sample text'");
+            writer.truncate(11);
+            writer.onwriteend = function(evt) {
+               writer.seek(4);
+                writer.write(pdfOutput);
+                writer.onwriteend = function(evt){
+                  //  alert("contents of file now 'some different text'");
+                }
+            };
+        };
+        writer.write(pdfOutput); //1
+    }
+
+    function fail(error) {
+        alert(error.code);
+    }
+
+/*
 function jssPDF(){
+
 
 var doc = new jsPDF();
  doc.text(9, 13,'Nome : fwfefeafeafqqfqef');
@@ -51,13 +93,11 @@ console.log ("sistema de arquivos ...");
 
 window.requestFileSystem (LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
 
-console.log (fileSystem.name); 
-console.log (fileSystem.root.name); 
-console.log (fileSystem.root.fullPath);
 
-fileSystem.root.getFile ("test.pdf", {create: true}, function (entrada) { 
-var fileEntry = entrada; 
-console.log (entrada);
+
+fileSystem.root.getFile ("test.pdf", {create: true}, function (entry) { 
+var fileEntry = entry; 
+console.log (entry);
 
 entry.createWriter (function (writer) { 
 writer.onwrite = function (evt) { 
@@ -80,7 +120,7 @@ console.log (evt.target.error.code);
 
 
 }
-
+*/
 </script>
 </body>
 </html>

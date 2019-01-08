@@ -33,7 +33,19 @@
 <script src="html2canvas.js"></script>
 
 <script>
+function jssPDF(){
+let options = {
+                documentSize: 'A4',
+                type: 'share'
+              }
+ 
+pdf.fromData( '<html><h1>Hello World</h1></html>', options)
+    .then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
+    .catch((err)=>console.err(err))
 
+}
+
+/*
  document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
