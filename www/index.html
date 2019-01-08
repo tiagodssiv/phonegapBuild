@@ -28,11 +28,56 @@
 <script type="text/javascript" src="jquery-2.2.3.min.js"></script>
  <script type="text/javascript" src="cordova.js"></script>
  <script type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
-
+ 
 <script src="pdf.js"></script>
 <script src="html2canvas.js"></script>
 
 <script>
+
+        document.addEventListener("deviceready", onDeviceReady(), false);
+		
+		
+function onDeviceReady() {
+
+
+	var doc = new jsPDF();
+doc.text(20, 20, ‘HELLO!’);
+
+doc.setFont("courier");
+doc.setFontType("normal");
+doc.text(20, 30, ‘This is a PDF document generated using JSPDF.’);
+doc.text(20, 50, ‘YES, Inside of PhoneGap!’);
+  
+//doc.save("teste.pdf");
+var pdfOutput = doc.output();
+    
+	window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
+          dir.getFile("test.pdf", {create: true, exclusive: false}, function (fileEntry) {
+           
+
+		   fileEntry.createWriter(function (writer) {
+writer.onwrite = function(evt) {
+         console.log("write success");
+      };
+
+      console.log("writing to file");
+         writer.write( pdfOutput );
+      }
+
+            },function () {
+
+
+              console.log("ERROR SAVEFILE");
+
+            });
+          }));
+        
+	
+	
+}
+
+
+/*
 function jssPDF(){
 
 	var doc = new jsPDF();
@@ -47,7 +92,30 @@ doc.text(20, 50, ‘YES, Inside of PhoneGap!’);
 var pdfOutput = doc.output();
 
 window.openPDF(pdfOutput);
-}
+
+
+
+window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
+          dir.getFile("test.pdf", {create: true, exclusive: false}, function (fileEntry) {
+            fileEntry.createWriter(function (writer) {
+writer.onwrite = function(evt) {
+         console.log("write success");
+      };
+
+      console.log("writing to file");
+         writer.write( pdfOutput );
+      }
+
+            },function () {
+
+
+              console.log("ERROR SAVEFILE");
+
+            });
+          });
+        });
+
+
 
 /*
  document.addEventListener("deviceready", onDeviceReady, false);
