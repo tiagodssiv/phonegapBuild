@@ -414,6 +414,14 @@ module.exports = [
             "pugin.pdf",
             "pdf"
         ]
+    },
+    {
+        "file": "plugins/de.cyberkatze.phonegap.plugin.PdfViewer/www/PdfViewer.js",
+        "id": "de.cyberkatze.phonegap.plugin.PdfViewer.PdfViewer",
+        "pluginId": "de.cyberkatze.phonegap.plugin.PdfViewer",
+        "merges": [
+            "openPDF"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -431,7 +439,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.7.2",
     "cordova-plugin-network-information": "1.3.4",
     "cordova-plugin-vibration": "2.1.6",
-    "cordova-pdf-generator": "2.0.4"
+    "cordova-pdf-generator": "2.0.4",
+    "de.cyberkatze.phonegap.plugin.PdfViewer": "0.3.0"
 }
 // BOTTOM OF METADATA
 });

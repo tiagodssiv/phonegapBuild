@@ -39,6 +39,9 @@
     },
     "cordova-pdf-generator": {
       "PACKAGE_NAME": "com.phonegap.helloworld"
+    },
+    "de.cyberkatze.phonegap.plugin.PdfViewer": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {
